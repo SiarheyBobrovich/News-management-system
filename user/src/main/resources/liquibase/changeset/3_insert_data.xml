@@ -1,0 +1,121 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+
+    <changeSet id="1" author="Bobrovich">
+        <insert tableName="role" schemaName="security">
+            <column name="role" type="VARCHAR" value="ADMIN"/>
+        </insert>
+        <insert tableName="role" schemaName="security">
+            <column name="role" type="VARCHAR" value="JOURNALIST"/>
+        </insert>
+        <insert tableName="role" schemaName="security">
+            <column name="role" type="VARCHAR" value="SUBSCRIBER"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="2" author="Bobrovich">
+        <insert tableName="users" schemaName="security">
+            <column name="login">admin</column>
+            <column name="password">$2a$10$bMat4Jbi1TjYAuA8bAOtnurWNjY8sI9P5KRJFarl3ILaYyxuYIOgq</column> <!-- admin -->
+            <column name="email">admin@admin.by</column>
+            <column name="first_name">admin</column>
+            <column name="last_name">admin</column>
+            <column name="role">ADMIN</column>
+        </insert>
+        <insert tableName="users" schemaName="security">
+            <column name="login">journalist</column>
+            <column name="password">$2a$10$DQ.kkRS2JkSpjBFLQg8E6ufAMVuPEOv1bvZtTyqMb3mjTmQ8X2NoS</column> <!-- journalist -->
+            <column name="email">journalist@journalist.by</column>
+            <column name="first_name">journalist</column>
+            <column name="last_name">journalist</column>
+            <column name="role">JOURNALIST</column>
+        </insert>
+        <insert tableName="users" schemaName="security">
+            <column name="login">user1</column>
+            <column name="password">$2a$10$weZXjxAooRc13kmchSlFf.utrazWAIG/5jdjthJ.qI86aUZyGUim.</column> <!-- user1 -->
+            <column name="email">subscriber1@subscriber.by</column>
+            <column name="first_name">subscriber1</column>
+            <column name="last_name">subscriber1</column>
+            <column name="role">SUBSCRIBER</column>
+        </insert>
+        <insert tableName="users" schemaName="security">
+            <column name="login">user2</column>
+            <column name="password">$2a$10$fzg/tDBPLtLO.mzkjKC9cOk6o0488B9f/4azLPqt.DzUU9koOJFVW</column> <!-- user2 -->
+            <column name="email">subscriber2@subscriber.by</column>
+            <column name="first_name">subscriber2</column>
+            <column name="last_name">subscriber2</column>
+            <column name="role">SUBSCRIBER</column>
+        </insert>
+        <insert tableName="users" schemaName="security">
+            <column name="login">user3</column>
+            <column name="password">$2a$10$2Fa2cdwA4Yq/S/XHn3FR0exaz5gCtmABYlRWTGTSV9MkFZDXe4fBW</column> <!-- user3 -->
+            <column name="email">subscriber3@subscriber.by</column>
+            <column name="first_name">subscriber3</column>
+            <column name="last_name">subscriber3</column>
+            <column name="role">SUBSCRIBER</column>
+        </insert>
+        <insert tableName="users" schemaName="security">
+            <column name="login">user4</column>
+            <column name="password">$2a$10$rudJcTTsXAW.XiRAEu8zau3/rDs0rQQgx4dX84/Xn0/tiFzixCjUK</column> <!-- user4 -->
+            <column name="email">subscriber4@subscriber.by</column>
+            <column name="first_name">subscriber4</column>
+            <column name="last_name">subscriber4</column>
+            <column name="role">SUBSCRIBER</column>
+        </insert>
+        <insert tableName="users" schemaName="security">
+            <column name="login">user5</column>
+            <column name="password">$2a$10$WOY/hEayG5ce0KRblJqoVeGgOwGpd76/VIg84p6DnWXCTm1TjU9aa</column> <!-- user5 -->
+            <column name="email">subscriber5@subscriber.by</column>
+            <column name="first_name">subscriber5</column>
+            <column name="last_name">subscriber5</column>
+            <column name="role">SUBSCRIBER</column>
+        </insert>
+        <insert tableName="users" schemaName="security">
+            <column name="login">user6</column>
+            <column name="password">$2a$10$ZxvQu6tpCb0AtudWlT/iH.JtvMAtKzO21ukT6Syy/TxxOZ2QeIL5.</column> <!-- user6 -->
+            <column name="email">subscriber6@subscriber.by</column>
+            <column name="first_name">subscriber6</column>
+            <column name="last_name">subscriber6</column>
+            <column name="role">SUBSCRIBER</column>
+        </insert>
+        <insert tableName="users" schemaName="security">
+            <column name="login">user7</column>
+            <column name="password">$2a$10$bJg9UfESbDO0lOGjq1u3W.R0DIi0OocILwYH2hJSApyX673QhBIZa</column> <!-- user7 -->
+            <column name="email">subscriber7@subscriber.by</column>
+            <column name="first_name">subscriber7</column>
+            <column name="last_name">subscriber7</column>
+            <column name="role">SUBSCRIBER</column>
+        </insert>
+        <insert tableName="users" schemaName="security">
+            <column name="login">user8</column>
+            <column name="password">$2a$10$MHiSJvuPJXuFdu/7GWvdLecTcb//Ho40KOVnr42SBX6ENak5WhJ7i</column> <!-- user8 -->
+            <column name="email">subscriber8@subscriber.by</column>
+            <column name="first_name">subscriber8</column>
+            <column name="last_name">subscriber8</column>
+            <column name="role">SUBSCRIBER</column>
+        </insert>
+        <insert tableName="users" schemaName="security">
+            <column name="login">user9</column>
+            <column name="password">$2a$10$ulb4673oDcuaPYMiI7bh.e/Qp0A3wEcX81iuLMtObEI0R2YWIi3Yu</column> <!-- user9 -->
+            <column name="email">subscriber9@subscriber.by</column>
+            <column name="first_name">subscriber9</column>
+            <column name="last_name">subscriber9</column>
+            <column name="role">SUBSCRIBER</column>
+        </insert>
+        <insert tableName="users" schemaName="security">
+            <column name="login">user10</column>
+            <column name="password">$2a$10$v1E2iTwLAC0XDlFMhgLRjOoHL/TFWRH81SDjtDP/qj38EGZ9vbdCm</column> <!-- user10 -->
+            <column name="email">subscribe10r@subscriber.by</column>
+            <column name="first_name">subscriber10</column>
+            <column name="last_name">subscriber10</column>
+            <column name="role">SUBSCRIBER</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

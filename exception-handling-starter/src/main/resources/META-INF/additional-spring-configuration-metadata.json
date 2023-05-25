@@ -1,0 +1,8 @@
+{
+  "properties": [{
+      "name": "spring.exception.handling.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Should exception-handling auto-configuration be enabled or not?",
+      "defaultValue": "true"
+    }]
+}

@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    config:
+      enabled: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/clevertec
+    username: postgres
+    password: postgres
+  cache:
+    algorithm: lfu
+    size: 10
+client:
+  users:
+    url: localhost:8081/api/v1/users/info

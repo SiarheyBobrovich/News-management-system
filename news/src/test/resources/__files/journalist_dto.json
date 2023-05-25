@@ -1,0 +1,11 @@
+{
+    "username": "journalist",
+    "authorities": [
+        {
+            "authority": "news:write"
+        },
+        {
+            "authority": "news:delete"
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+{
+  "properties": [{
+      "name": "spring.logging.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Should logging auto-configuration be enabled or not?",
+      "defaultValue": "true"
+    }]
+}

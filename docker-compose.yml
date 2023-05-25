@@ -1,0 +1,93 @@
+version: '3.1'
+services:
+  config-service:
+    image: config-service
+    build: config
+    restart: always
+    healthcheck:
+      test: curl http://localhost:8888 || exit 1
+      interval: 5s
+      timeout: 3s
+    networks:
+      - news_ntwrk
+    ports:
+      - "8888:8888"
+
+  news-service:
+    image: news-service
+    build: news
+    depends_on:
+      config-service:
+        condition: service_healthy
+      db-news:
+        condition: service_healthy
+      redis-cache:
+        condition: service_healthy
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - news_ntwrk
+    ports:
+      - "8080:8080"
+
+  users-service:
+    image: users-service
+    build: user
+    restart: always
+    depends_on:
+      config-service:
+        condition: service_healthy
+      db-users:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - news_ntwrk
+    ports:
+      - "8081:8081"
+
+  redis-cache:
+    image: redis:7.0-alpine
+    restart: always
+    healthcheck:
+      test: [ "CMD", "redis-cli","ping" ]
+      interval: 10s
+      timeout: 3s
+    networks:
+      - news_ntwrk
+
+  db-news:
+    image: postgres:15.1-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: clevertec
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: pg_isready -U postgres -d clevertec
+      interval: 10s
+      timeout: 3s
+    networks:
+      - news_ntwrk
+    ports:
+      - "5432:5432"
+
+  db-users:
+    image: postgres:15.1-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: clevertec
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: pg_isready -U postgres -d clevertec
+      interval: 10s
+      timeout: 3s
+    networks:
+      - news_ntwrk
+    ports:
+      - "5433:5432"
+
+networks:
+  news_ntwrk:

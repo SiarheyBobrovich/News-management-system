@@ -1,0 +1,17 @@
+{
+    "username": "admin",
+    "authorities": [
+        {
+            "authority": "news:write"
+        },
+        {
+            "authority": "news:delete"
+        },
+        {
+            "authority": "comments:write"
+        },
+        {
+            "authority": "comments:delete"
+        }
+    ]
+}

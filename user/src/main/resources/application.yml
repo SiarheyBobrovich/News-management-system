@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: user
+  liquibase:
+    enabled: true
+    change-log: liquibase/db.changelog-master.yml

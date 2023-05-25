@@ -1,0 +1,12 @@
+spring:
+  security:
+    secret: 244226452948404D6351655468576D5A7134743777217A25432A462D4A614E645267556A586E3272357538782F413F4428472B4B6250655368566D5970337336d
+    issuer: test
+  datasource:
+    username: test
+    password: test
+  cloud:
+    config:
+      enabled: false
+  liquibase:
+    change-log: liquibase/db.changelog-master-test.yml

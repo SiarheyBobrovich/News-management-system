@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/api/v1/users",
+    "headers": {
+      "Authorization": {
+        "equalTo": "Bearer journalist"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    "bodyFileName": "journalist_dto.json"
+  }
+}

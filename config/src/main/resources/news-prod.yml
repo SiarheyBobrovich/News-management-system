@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://db-news:5432/clevertec
+    username: postgres
+    password: postgres
+  cache:
+    type: redis
+  data:
+    redis:
+      host: redis-cache
+      port: 6379
+server:
+  port: 8080
+client:
+  users:
+    url: http://users-service:8081/api/v1/users/info

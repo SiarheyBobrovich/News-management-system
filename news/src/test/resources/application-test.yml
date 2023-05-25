@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    username: test
+    password: test
+  liquibase:
+    change-log: liquibase/db.changelog-master-test.yml
+  cloud:
+    config:
+      enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+client:
+  users:
+    url: localhost:8081/api/v1/users

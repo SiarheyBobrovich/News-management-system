@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    config:
+      enabled: false
+  datasource:
+    url: jdbc:postgresql://localhost:5433/clevertec
+    username: postgres
+    password: postgres
+  security:
+    secret: 2A462D4A614E645267556B58703273357638792F423F4428472B4B6250655368566D597133743677397A244326462948404D635166546A576E5A723475377821
+    issuer: Clevertec
+server:
+  port: 8081
