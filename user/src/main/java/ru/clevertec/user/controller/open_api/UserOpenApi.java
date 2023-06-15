@@ -49,7 +49,18 @@ public interface UserOpenApi {
                             )
                     ),
                     @ApiResponse(
-                            responseCode = "403"
+                            responseCode = "403",
+                            description = "Only anonymous users must logIn",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ExceptionMessage.class),
+                                    examples = @ExampleObject("""
+                                            {
+                                                "status": 403,
+                                                "message": "Full authentication is required to access this resource"
+                                            }
+                                            """)
+                            )
                     ),
             }
     )
@@ -81,7 +92,17 @@ public interface UserOpenApi {
                             )
                     ),
                     @ApiResponse(
-                            responseCode = "403"
+                            responseCode = "403",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ExceptionMessage.class),
+                                    examples = @ExampleObject("""
+                                            {
+                                                "status": 403,
+                                                "message": "Full authentication is required to access this resource"
+                                            }
+                                            """)
+                            )
                     ),
             }
     )
