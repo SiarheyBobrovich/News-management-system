@@ -34,7 +34,8 @@ public interface NewsOpenApi {
                                                 "id": 1,
                                                 "time": "2023-05-01T01:01:01",
                                                 "title": "Компания ispace объяснила причину крушения модуля Hakuto-R",
-                                                "text": " Эксперты компании пришли к выводу, что причиной крушения стала ошибка бортового компьютера, который неправильно определил высоту аппарата из-за сложного рельефа."
+                                                "text": " Эксперты компании пришли к выводу, что причиной крушения стала ошибка бортового компьютера, который неправильно определил высоту аппарата из-за сложного рельефа.",
+                                                "author": "journalist"
                                             }
                                             """),
                                     schema = @Schema(implementation = ResponseNewsView.class)
@@ -73,55 +74,39 @@ public interface NewsOpenApi {
                             schema = @Schema(implementation = PageResponseNewsView.class),
                             examples = @ExampleObject("""
                                     {
-                                        "content": [
-                                            {
-                                                "id": 10,
-                                                "time": "2023-05-10T10:10:10",
-                                                "title": "Энтузиасты выпустили утилиту активации Windows XP, так как у многих пользователей есть необходимость в работе с этой ОС",
-                                                "text": "Теперь для активации ОС не нужны серверы для проверки ключей от Microsoft, которые компания отключила несколько лет назад в рамках окончания поддержки старого ПО."
-                                            },
-                                            {
-                                                "id": 7,
-                                                "time": "2023-05-07T07:07:07",
-                                                "title": "Цены на электричество в Финляндии достигли отрицательных значений",
-                                                "text": "Финляндия столкнулась с необычной проблемой — избытком «чистой» электроэнергии, цены на которую приняли отрицательные значения."
-                                            }
-                                        ],
-                                        "pageable": {
-                                            "sort": [
-                                                {
-                                                    "direction": "DESC",
-                                                    "property": "title",
-                                                    "ignoreCase": false,
-                                                    "nullHandling": "NATIVE",
-                                                    "ascending": false,
-                                                    "descending": true
-                                                }
-                                            ],
-                                            "offset": 0,
-                                            "pageNumber": 0,
-                                            "pageSize": 2,
-                                            "paged": true,
-                                            "unpaged": false
-                                        },
-                                        "last": false,
-                                        "totalPages": 6,
-                                        "totalElements": 11,
-                                        "size": 2,
-                                        "number": 0,
-                                        "sort": [
-                                            {
-                                                "direction": "DESC",
-                                                "property": "title",
-                                                "ignoreCase": false,
-                                                "nullHandling": "NATIVE",
-                                                "ascending": false,
-                                                "descending": true
-                                            }
-                                        ],
-                                        "first": true,
-                                        "numberOfElements": 2,
-                                        "empty": false
+                                         "content": [
+                                             {
+                                                 "id": 1,
+                                                 "time": "2023-05-01T01:01:01",
+                                                 "title": "Компания ispace объяснила причину крушения модуля Hakuto-R",
+                                                 "text": " Эксперты компании пришли к выводу, что причиной крушения стала ошибка бортового компьютера, который неправильно определил высоту аппарата из-за сложного рельефа.",
+                                                 "author": "journalist"
+                                             },
+                                             {
+                                                 "id": 2,
+                                                 "time": "2023-05-02T02:02:02",
+                                                 "title": "Gigabyte представила внешнюю видеокарту Aorus GeForce RTX 4090 Gaming Box в большом корпусе с мощным БП",
+                                                 "text": "Устройство представляет из себя пятикилограммовый корпус размером 302х172х189 мм (ГхШхВ) с системой жидкостного охлаждения и встроенным БП на 850 Вт, имеющим сертификацию 80 Plus Gold.",
+                                                 "author": "journalist"
+                                             }
+                                         ],
+                                         "pageable": {
+                                             "sort": [],
+                                             "offset": 0,
+                                             "pageNumber": 0,
+                                             "pageSize": 2,
+                                             "paged": true,
+                                             "unpaged": false
+                                         },
+                                         "last": false,
+                                         "totalPages": 11,
+                                         "totalElements": 21,
+                                         "size": 2,
+                                         "number": 0,
+                                         "sort": [],
+                                         "first": true,
+                                         "numberOfElements": 2,
+                                         "empty": false
                                     }
                                     """)
                     )
@@ -137,7 +122,7 @@ public interface NewsOpenApi {
                     @Parameter(name = "page", description = "News page", example = "0"),
                     @Parameter(name = "size", description = "Page size", example = "20"),
                     @Parameter(name = "sort", description = "Sorting by field", example = "title,desc"),
-                    @Parameter(name = "part", description = "Part of title or text", example = "для")
+                    @Parameter(name = "part", description = "Part of title or text", example = "мод")
             },
             responses = @ApiResponse(
                     responseCode = "200",
@@ -148,16 +133,18 @@ public interface NewsOpenApi {
                                     {
                                        "content": [
                                          {
-                                           "id": 10,
-                                           "time": "2023-05-10T10:10:10",
-                                           "title": "Энтузиасты выпустили утилиту активации Windows XP, так как у многих пользователей есть необходимость в работе с этой ОС",
-                                           "text": "Теперь для активации ОС не нужны серверы для проверки ключей от Microsoft, которые компания отключила несколько лет назад в рамках окончания поддержки старого ПО."
+                                           "id": 3,
+                                           "time": "2023-05-03T03:03:03",
+                                           "title": "Суд утвердил мировое соглашение по коллективному иску к Apple из-за проблем с клавиатурой-«бабочкой»",
+                                           "text": "Суд в США утвердил мировое соглашение по коллективному иску к Apple из-за проблем с клавиатурой типа «бабочка» в MacBook моделей 2015-2019 годов. Об этом сообщает Reuters.",
+                                           "author": "journalist"
                                          },
                                          {
-                                           "id": 8,
-                                           "time": "2023-05-08T08:08:08",
-                                           "title": "MSI представила своё решение проблемы с кабелями 12VHPWR",
-                                           "text": "MSI разработала двухцветный разъём для кабеля 12VHPWR. По задумке компании, это поможет пользователям подключать разъёмы адаптера к видеокартам правильно."
+                                           "id": 1,
+                                           "time": "2023-05-01T01:01:01",
+                                           "title": "Компания ispace объяснила причину крушения модуля Hakuto-R",
+                                           "text": " Эксперты компании пришли к выводу, что причиной крушения стала ошибка бортового компьютера, который неправильно определил высоту аппарата из-за сложного рельефа.",
+                                           "author": "journalist"
                                          }
                                        ],
                                        "pageable": {
@@ -229,10 +216,11 @@ public interface NewsOpenApi {
                                     schema = @Schema(implementation = ResponseNewsView.class),
                                     examples = @ExampleObject("""
                                             {
-                                                "id": 21,
-                                                "time": "2023-05-01T01:01:01",
-                                                "title": "First news",
-                                                "text": "First text"
+                                                 "id": 21,
+                                                 "time": "2023-06-16T00:25:18.391254984",
+                                                 "title": "First news",
+                                                 "text": "First text",
+                                                 "author": "journalist"
                                             }
                                             """)
                             )
@@ -306,10 +294,11 @@ public interface NewsOpenApi {
                                     schema = @Schema(implementation = ResponseNewsView.class),
                                     examples = @ExampleObject("""
                                             {
-                                                "id": 1,
-                                                "time": "2023-05-01T01:01:01",
+                                                "id": 21,
+                                                "time": "2023-06-16T00:25:18.391255",
                                                 "title": "Updated news",
-                                                "text": "Updated text"
+                                                "text": "Updated text",
+                                                "author": "journalist"
                                             }
                                             """)
                             )

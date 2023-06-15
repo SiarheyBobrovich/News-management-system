@@ -3,5 +3,6 @@
   "time": "2023-01-01T01:01:01",
   "title": "Updated news",
   "text": "Updated text",
+  "author": "journalist",
   "comments": []
 }

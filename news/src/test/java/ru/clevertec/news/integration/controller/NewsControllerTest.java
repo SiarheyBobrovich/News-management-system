@@ -153,6 +153,7 @@ class NewsControllerTest extends PostgresqlTestContainer {
             ResponseNewsView expectedView = getTestData(ResponseNewsView.class, VIEW_NEWS_01_JSON);
             CreateNewsDto createNewsDto = getTestData(CreateNewsDto.class, POST_DTO_NEWS_01_JSON);
 
+
             doReturn(expectedView)
                     .when(service).create(createNewsDto);
 
@@ -172,10 +173,13 @@ class NewsControllerTest extends PostgresqlTestContainer {
         @ParameterizedTest
         @ValueSource(strings = {ADMIN_TOKEN, JOURNALIST_TOKEN})
         void putNews(String token) {
+            ResponseNewsView currentNewsView = getTestData(ResponseNewsView.class, VIEW_NEWS_01_JSON);
             ResponseNewsView expectedView = getTestData(ResponseNewsView.class, VIEW_UPDATED_NEWS_01_JSON);
             CreateNewsDto updateDto = getTestData(CreateNewsDto.class, PUT_DTO_NEWS_01_JSON);
             Long newsId = expectedView.id();
 
+            doReturn(currentNewsView)
+                    .when(service).getById(newsId);
             doReturn(expectedView)
                     .when(service).update(newsId, updateDto);
 
@@ -194,7 +198,11 @@ class NewsControllerTest extends PostgresqlTestContainer {
         @ParameterizedTest
         @ValueSource(strings = {ADMIN_TOKEN, JOURNALIST_TOKEN})
         void deleteNews(String token) {
-            Long id = 1L;
+            ResponseNewsView currentNewsView = getTestData(ResponseNewsView.class, VIEW_NEWS_01_JSON);
+            Long id = currentNewsView.id();
+
+            doReturn(currentNewsView)
+                    .when(service).getById(id);
             doNothing()
                     .when(service).delete(id);
 

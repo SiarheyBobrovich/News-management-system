@@ -9,6 +9,7 @@ public record ResponseNews(Long id,
                            LocalDateTime time,
                            String title,
                            String text,
+                           String author,
                            Page<ResponseComment> comments
 ) implements Serializable {
 }

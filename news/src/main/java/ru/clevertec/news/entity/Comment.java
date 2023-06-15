@@ -13,7 +13,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import ru.clevertec.news.entity.listener.CommentListener;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -23,7 +25,7 @@ import java.time.LocalDateTime;
 @Entity
 @ToString
 @EqualsAndHashCode
-@EntityListeners(CommentListener.class)
+@EntityListeners({AuditingEntityListener.class})
 @Table(schema = "news", name = "comment")
 public class Comment implements Serializable {
 
@@ -31,12 +33,14 @@ public class Comment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @CreatedDate
     @Column(nullable = false)
     private LocalDateTime time;
 
     @Column(nullable = false)
     private String text;
 
+    @CreatedBy
     @Column(nullable = false, length = 40)
     private String username;
 

@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
       file: liquibase/changeset/1_schema_tables.xml
+  - include:
+      file: liquibase/changeset/3_news_column_author.xml

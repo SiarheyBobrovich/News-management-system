@@ -5,6 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
 import ru.clevertec.news.data.CreateCommentDto;
 import ru.clevertec.news.data.Filter;
@@ -101,6 +102,7 @@ class CommentServiceImplTest extends PostgresqlTestContainer {
     }
 
     @Test
+    @WithMockUser(username = "user1")
     void createComment() {
         CreateCommentDto commentDto = getTestData(CreateCommentDto.class, CREATE_COMMENT_DTO_01_JSON);
         ResponseCommentNews expectedResponse = getTestData(ResponseCommentNews.class, RESP_COMMENT_NEWS_03_JSON);
@@ -115,6 +117,7 @@ class CommentServiceImplTest extends PostgresqlTestContainer {
     }
 
     @Test
+    @WithMockUser(username = "user1")
     void createNewCommentSetTime() {
         CreateCommentDto commentDto = getTestData(CreateCommentDto.class, CREATE_COMMENT_DTO_01_JSON);
 

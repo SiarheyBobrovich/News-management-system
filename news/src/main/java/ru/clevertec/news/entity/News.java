@@ -14,7 +14,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import ru.clevertec.news.entity.listener.NewsListener;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -25,7 +27,7 @@ import java.util.List;
 @Entity
 @ToString
 @EqualsAndHashCode
-@EntityListeners(NewsListener.class)
+@EntityListeners({AuditingEntityListener.class})
 @Table(schema = "news", name = "news")
 public class News implements Serializable {
 
@@ -33,6 +35,7 @@ public class News implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @CreatedDate
     @Column(nullable = false)
     private LocalDateTime time;
 
@@ -41,6 +44,10 @@ public class News implements Serializable {
 
     @Column(nullable = false)
     private String text;
+
+    @CreatedBy
+    @Column(nullable = false, length = 40)
+    private String author;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

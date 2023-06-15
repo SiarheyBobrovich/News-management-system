@@ -48,8 +48,11 @@ class CommentMapperTest {
         Comment comment = mapper.toComment(commentDto);
 
         assertThat(comment)
-                .extracting("id", "time", "text", "username", "news.id")
-                .containsExactly(null, null, commentDto.text(), commentDto.username(), news.getId());
+                .hasFieldOrPropertyWithValue("id", null)
+                .hasFieldOrPropertyWithValue("time", null)
+                .hasFieldOrPropertyWithValue("text", commentDto.text())
+                .hasFieldOrPropertyWithValue("username", null)
+                .hasFieldOrPropertyWithValue("news.id", news.getId());
     }
 
     @Test

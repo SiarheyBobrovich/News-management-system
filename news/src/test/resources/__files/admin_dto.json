@@ -12,6 +12,9 @@
         },
         {
             "authority": "comments:delete"
+        },
+        {
+            "authority": "admin"
         }
     ]
 }

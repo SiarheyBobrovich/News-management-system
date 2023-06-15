@@ -3,11 +3,12 @@ package ru.clevertec.news.integration.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
+import ru.clevertec.exception.handling.exception.NewsNotFoundException;
 import ru.clevertec.news.data.CreateNewsDto;
 import ru.clevertec.news.data.Filter;
 import ru.clevertec.news.data.ResponseNewsView;
-import ru.clevertec.exception.handling.exception.NewsNotFoundException;
 import ru.clevertec.news.service.NewsService;
 import ru.clevertec.news.util.IntegrationTest;
 import ru.clevertec.news.util.PostgresqlTestContainer;
@@ -80,6 +81,7 @@ class NewsServiceImplTest extends PostgresqlTestContainer {
     }
 
     @Test
+    @WithMockUser(username = "user")
     void checkCreate() {
         CreateNewsDto newsDto = getTestData(CreateNewsDto.class, POST_DTO_NEWS_01_JSON);
 
@@ -87,8 +89,9 @@ class NewsServiceImplTest extends PostgresqlTestContainer {
 
         assertThat(newsView)
                 .hasNoNullFieldsOrProperties()
-                .extracting("title", "text")
-                .containsExactly(newsDto.title(), newsDto.text());
+                .hasFieldOrPropertyWithValue("title", newsDto.title())
+                .hasFieldOrPropertyWithValue("text", newsDto.text())
+                .hasFieldOrPropertyWithValue("author", "user");
     }
 
     @Test

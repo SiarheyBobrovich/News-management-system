@@ -10,10 +10,6 @@ public record CreateCommentDto(
         @Pattern(regexp = "[\\w\\sа-яА-ЯёЁ,.\\-()!?:=%<>*+/]{1,255}")
         String text,
 
-        @NotBlank
-        @Pattern(regexp = "[\\w\\sа-яА-ЯёЁ]{1,40}")
-        String username,
-
         @NotNull
         Long newsId
 ) {

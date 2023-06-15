@@ -296,7 +296,6 @@ public interface CommentOpenApi {
                             examples = @ExampleObject("""
                                     {
                                       "text": "First comment",
-                                      "username": "user1",
                                       "newsId": "1"
                                     }
                                     """)

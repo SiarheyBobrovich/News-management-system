@@ -3,5 +3,6 @@
   "time": "2023-02-02T02:02:02",
   "title": "Second news",
   "text": "Second text",
+  "author": "journalist1",
   "comments": []
 }

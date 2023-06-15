@@ -23,6 +23,7 @@ public class TestDataUtil {
             .registerModule(new JavaTimeModule());
 
     public final String COMMENT_01_JSON = "/data/comment_01.json";
+    public final String COMMENT_01_TO_SAVE_JSON = "/data/comment_01_to_save.json";
     public final String COMMENT_02_JSON = "/data/comment_02.json";
     public final String FILTER_01_JSON = "/data/filter_01.json";
     public final String FILTER_02_JSON = "/data/filter_02.json";
@@ -71,6 +72,6 @@ public class TestDataUtil {
     }
 
     public ResponseNews toResponse(News news, Page<ResponseComment> page) {
-        return new ResponseNews(news.getId(), news.getTime(), news.getTitle(), news.getText(), page);
+        return new ResponseNews(news.getId(), news.getTime(), news.getTitle(), news.getText(), news.getAuthor(), page);
     }
 }

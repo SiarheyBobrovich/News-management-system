@@ -5,3 +5,6 @@ spring:
     name: news
   liquibase:
     change-log: liquibase/db.changelog-master.yml
+  jpa:
+    hibernate:
+      ddl-auto: validate

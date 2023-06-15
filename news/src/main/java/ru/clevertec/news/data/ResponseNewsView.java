@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 public record ResponseNewsView(Long id,
                                LocalDateTime time,
                                String title,
-                               String text
+                               String text,
+                               String author
 ) implements Serializable {
 }

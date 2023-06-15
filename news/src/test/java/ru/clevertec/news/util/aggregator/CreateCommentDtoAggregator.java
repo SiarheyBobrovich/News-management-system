@@ -11,9 +11,8 @@ public class CreateCommentDtoAggregator implements ArgumentsAggregator {
     @Override
     public Object aggregateArguments(ArgumentsAccessor accessor, ParameterContext context) throws ArgumentsAggregationException {
         String text = accessor.getString(0);
-        String username = accessor.getString(1);
-        Long newsId = accessor.getLong(2);
+        Long newsId = accessor.getLong(1);
 
-        return new CreateCommentDto(text, username, newsId);
+        return new CreateCommentDto(text, newsId);
     }
 }

@@ -211,10 +211,13 @@ class CommentControllerTest extends PostgresqlTestContainer {
         @ParameterizedTest
         @ValueSource(strings = {ADMIN_TOKEN, SUBSCRIBER_TOKEN})
         void checkPutComment(String token) {
+            ResponseCommentNews currentComment = getTestData(ResponseCommentNews.class, RESP_COMMENT_NEWS_01_JSON);
             UpdateCommentDto updateCommentDto = getTestData(UpdateCommentDto.class, UPDATE_COMMENT_DTO_JSON);
             ResponseCommentNews expected = getTestData(ResponseCommentNews.class, UPDATED_RESP_COMMENT_NEWS_01_JSON);
             Long id = expected.id();
 
+            doReturn(currentComment)
+                    .when(service).getById(id);
             doReturn(expected)
                     .when(service).update(id, updateCommentDto);
 
@@ -254,8 +257,11 @@ class CommentControllerTest extends PostgresqlTestContainer {
         @ParameterizedTest
         @ValueSource(strings = {ADMIN_TOKEN, SUBSCRIBER_TOKEN})
         void checkDeleteComment(String token) {
+            ResponseCommentNews currentComment = getTestData(ResponseCommentNews.class, RESP_COMMENT_NEWS_01_JSON);
             Long id = 1L;
 
+            doReturn(currentComment)
+                    .when(service).getById(id);
             doNothing()
                     .when(service).delete(id);
 

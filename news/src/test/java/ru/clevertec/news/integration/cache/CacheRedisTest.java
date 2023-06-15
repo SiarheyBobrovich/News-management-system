@@ -99,12 +99,9 @@ class CacheRedisTest extends PostgresqlTestContainer implements RedisTestContain
     }
 
     @Test
-    void save() {
+    void saveComment() {
         CreateCommentDto create = getTestData(CreateCommentDto.class, CREATE_COMMENT_DTO_01_JSON);
-        Comment toSave = getTestData(Comment.class, COMMENT_01_JSON);
-        toSave.setId(null);
-        toSave.setTime(null);
-
+        Comment toSave = getTestData(Comment.class, COMMENT_01_TO_SAVE_JSON);
         Comment comment = getTestData(Comment.class, COMMENT_01_JSON);
         Long id = comment.getId();
 

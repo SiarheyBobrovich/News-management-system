@@ -81,7 +81,8 @@ public class NewsController implements NewsOpenApi {
 
     /**
      * Возвращает объект {@link ResponseEntity}, содержащий новость {@link ResponseNewsView},
-     * созданную на основе заданного объекта {@link CreateNewsDto}.
+     * созданную на основе заданного объекта {@link CreateNewsDto}.<br/>
+     * Публиковать новости могут пользователи с доступом <strong>news:write</strong>
      *
      * @param newsDto объект {@link CreateNewsDto}, содержащий данные для создания новости
      * @return объект {@link ResponseEntity}, содержащий новость {@link ResponseNewsView} и статус ответа
@@ -97,7 +98,10 @@ public class NewsController implements NewsOpenApi {
 
     /**
      * Возвращает объект {@link ResponseEntity}, содержащий новость {@link ResponseNewsView},
-     * обновленный на основе заданного объекта {@link CreateNewsDto}.
+     * обновленный на основе заданного объекта {@link CreateNewsDto}.<br/>
+     * Обновлять новости могут пользователи с доступом:<br/>
+     * 1) <strong>admin</strong><br/>
+     * 2) <strong>news:write</strong> но имя автора должно совпадать с именем пользователя
      *
      * @param id      идентификатор новости
      * @param newsDto объект {@link CreateNewsDto}, содержащий данные для обновления новости
@@ -105,7 +109,10 @@ public class NewsController implements NewsOpenApi {
      */
     @Override
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('news:write')")
+    @PreAuthorize("""
+            hasAuthority('admin') ||
+            (hasAuthority('news:write') && @newsServiceImpl.getById(#id).author().equals(principal.username))
+            """)
     public ResponseEntity<ResponseNewsView> putNews(@PathVariable Long id,
                                                     @Valid @RequestBody CreateNewsDto newsDto) {
         ResponseNewsView responseNewsView = newsService.update(id, newsDto);
@@ -115,14 +122,20 @@ public class NewsController implements NewsOpenApi {
 
     /**
      * Возвращает объект {@link ResponseEntity}, содержащий статус ответа,
-     * после удаления новости по заданному идентификатору.
+     * после удаления новости по заданному идентификатору.<br/>
+     * Удалять новости могут пользователи с доступом:<br/>
+     * 1) <strong>admin</strong><br/>
+     * 2) <strong>news:write</strong> но имя автора должно совпадать с именем пользователя
      *
      * @param id идентификатор новости
      * @return объект {@link ResponseEntity}, содержащий статус ответа
      */
     @Override
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('news:delete')")
+    @PreAuthorize("""
+            hasAuthority('admin') ||
+            (hasAuthority('news:write') && @newsServiceImpl.getById(#id).author().equals(principal.username))
+            """)
     public ResponseEntity<Void> deleteNews(@PathVariable Long id) {
         newsService.delete(id);
 

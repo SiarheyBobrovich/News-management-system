@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.TestPropertySource;
+import ru.clevertec.exception.handling.exception.CommentNotFoundException;
 import ru.clevertec.news.cache.aspect.CommentsCacheAspect;
 import ru.clevertec.news.data.CreateCommentDto;
 import ru.clevertec.news.entity.Comment;
 import ru.clevertec.news.entity.News;
-import ru.clevertec.exception.handling.exception.CommentNotFoundException;
 import ru.clevertec.news.repository.CommentRepository;
 import ru.clevertec.news.service.CommentService;
 import ru.clevertec.news.util.IntegrationTest;
@@ -18,7 +18,10 @@ import ru.clevertec.news.util.PostgresqlTestContainer;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static ru.clevertec.news.util.TestDataUtil.*;
 
 @IntegrationTest

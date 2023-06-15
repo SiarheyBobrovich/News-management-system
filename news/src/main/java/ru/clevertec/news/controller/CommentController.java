@@ -98,7 +98,8 @@ public class CommentController implements CommentOpenApi {
 
     /**
      * Возвращает объект {@link ResponseEntity}, содержащий комментарий {@link ResponseCommentNews},
-     * созданный на основе заданного объекта {@link CreateCommentDto}.
+     * созданный на основе заданного объекта {@link CreateCommentDto}<br/>
+     * Публиковать комментарии могут пользователи с доступом: <strong>comments:write</strong>
      *
      * @param dto объект {@link CreateCommentDto}, содержащий данные для создания комментария
      * @return объект {@link ResponseEntity}, содержащий комментарий {@link ResponseCommentNews} и статус ответа
@@ -115,6 +116,9 @@ public class CommentController implements CommentOpenApi {
     /**
      * Возвращает объект {@link ResponseEntity}, содержащий комментарий {@link ResponseCommentNews},
      * обновленный на основе заданного объекта {@link UpdateCommentDto}.
+     * Изменять комментарий могут пользователи с доступом:<br/>
+     * 1) <strong>admin</strong><br/>
+     * 2) <strong>comments:write</strong> и имя совпадает
      *
      * @param id  идентификатор комментария
      * @param dto объект {@link UpdateCommentDto}, содержащий данные для обновления комментария
@@ -122,7 +126,10 @@ public class CommentController implements CommentOpenApi {
      */
     @Override
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('comments:write')")
+    @PreAuthorize("""
+            hasAuthority('admin') ||
+            (hasAuthority('comments:write') && @commentServiceImpl.getById(#id).username().equals(principal.username))
+            """)
     public ResponseEntity<ResponseCommentNews> putComment(@PathVariable Long id,
                                                           @RequestBody @Valid UpdateCommentDto dto) {
         ResponseCommentNews updatedComment = service.update(id, dto);
@@ -133,13 +140,19 @@ public class CommentController implements CommentOpenApi {
     /**
      * Возвращает объект {@link ResponseEntity},
      * содержащий статус ответа, после удаления комментария по заданному идентификатору.
+     * Удалять комментарий могут пользователи с доступом:<br/>
+     * 1) <strong>admin</strong><br/>
+     * 2) <strong>comments:write</strong> и имя совпадает
      *
      * @param id идентификатор комментария
      * @return объект {@link ResponseEntity}, содержащий статус ответа
      */
     @Override
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('comments:delete')")
+    @PreAuthorize("""
+            hasAuthority('admin') ||
+            (hasAuthority('comments:write') && @commentServiceImpl.getById(#id).username().equals(principal.username))
+            """)
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
 
