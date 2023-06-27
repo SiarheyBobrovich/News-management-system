@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +15,12 @@ import ru.clevertec.user.data.CreateUserDto;
 import ru.clevertec.user.data.ResponseUserDto;
 import ru.clevertec.user.data.UserDto;
 import ru.clevertec.user.service.UserService;
+import ru.clevertec.user.validation.ValidProto;
 
+@Validated
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/users")
+@RequestMapping(value = "/api/v1/users", produces = "application/json")
 public class UserController implements UserOpenApi {
 
     private final UserService userService;
@@ -44,7 +47,7 @@ public class UserController implements UserOpenApi {
      * @return объект {@link ResponseEntity}, содержащий объект {@link UserDto} и статус ответа
      */
     @Override
-    @PostMapping("/info")
+    @PostMapping(value = "/info")
     public ResponseEntity<UserDto> getUserInfo(@AuthenticationPrincipal UserDetails userDetails) {
         UserDto userDto = userService.getUserInfo(userDetails);
 
@@ -59,7 +62,8 @@ public class UserController implements UserOpenApi {
      */
     @Override
     @PostMapping
-    public ResponseEntity<ResponseUserDto> createUser(@Valid @RequestBody CreateUserDto userDto) {
+    @Valid
+    public ResponseEntity<ResponseUserDto> createUser(@ValidProto @RequestBody CreateUserDto userDto) {
         ResponseUserDto responseUserDto = userService.create(userDto);
 
         return ResponseEntity.status(201).body(responseUserDto);

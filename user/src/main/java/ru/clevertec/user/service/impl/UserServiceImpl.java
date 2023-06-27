@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
             return Optional.of(dto)
                     .map(userMapper::toUser)
                     .map(u -> {
-                        u.setPassword(passwordEncoder.encode(dto.password()));
+                        u.setPassword(passwordEncoder.encode(dto.getPassword()));
                         return u;
                     })
                     .map(userRepository::save)

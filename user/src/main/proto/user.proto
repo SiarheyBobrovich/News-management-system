@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+import "validate/validate.proto";
+
+option java_package = "ru.clevertec.user.data";
+option java_multiple_files = true;
+
+message UserDto {
+  string username = 1;
+  repeated Authority authorities = 2;
+}
+
+message Authority {
+  string authority = 1;
+}
+
+message CreateUserDto {
+
+  string login = 1 [(validate.rules).string = {
+    pattern: "[A-Za-z][A-Za-z\\d.-]{5,39}$",
+    min_len: 5,
+    max_len: 40
+  }];
+
+  string password = 2 [(validate.rules).string = {
+    pattern: "([a-zA-Z]+\\d+)|(\\d+[a-zA-Z]+)", //Minimum eight characters, at least one letter and one number
+    min_len: 8,
+    max_len: 200
+  }];
+
+  string email = 3 [(validate.rules).string = {
+    pattern: "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$",
+    min_len: 5,
+    max_len: 100
+  }];
+
+  string firstName = 4 [(validate.rules).string = {
+    pattern: "[^\\s]+",
+    min_len: 2,
+    max_len: 40
+  }];
+
+  string lastName = 5 [(validate.rules).string = {
+    pattern: "[^\\s]+",
+    min_len: 2,
+    max_len: 50
+  }];
+}
+
+message ResponseUserDto {
+  int64 id = 1;
+  string login = 2;
+  string email = 3;
+  string firstName = 4;
+  string lastName = 5;
+}

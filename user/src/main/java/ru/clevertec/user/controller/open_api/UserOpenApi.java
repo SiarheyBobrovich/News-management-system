@@ -14,6 +14,7 @@ import ru.clevertec.exception.handling.exception.ExceptionMessage;
 import ru.clevertec.user.data.CreateUserDto;
 import ru.clevertec.user.data.ResponseUserDto;
 import ru.clevertec.user.data.UserDto;
+import ru.clevertec.user.validation.ValidProto;
 
 @Tag(name = "User")
 public interface UserOpenApi {
@@ -140,5 +141,5 @@ public interface UserOpenApi {
                     )
             }
     )
-    ResponseEntity<ResponseUserDto> createUser(@Parameter(hidden = true) CreateUserDto userDto);
+    ResponseEntity<ResponseUserDto> createUser(@Parameter(hidden = true) @ValidProto CreateUserDto userDto);
 }

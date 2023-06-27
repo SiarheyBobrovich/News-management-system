@@ -29,7 +29,7 @@ public class UserServiceImplTest extends PostgresqlTestContainer {
     void getAuthorizationToken() {
         CreateUserDto user = getTestData(CreateUserDto.class, CREATE_USER_DTO_01);
 
-        String token = service.getAuthorizationToken(user.login(), user.password());
+        String token = service.getAuthorizationToken(user.getLogin(), user.getPassword());
 
         assertThat(token).isNotNull().isNotBlank();
     }

@@ -1,11 +1,12 @@
 package ru.clevertec.user.integration.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.protobuf.util.JsonFormat;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -104,7 +105,7 @@ class UserControllerTest extends PostgresqlTestContainer {
                 .andExpectAll(
                         status().isOk(),
                         content().contentType(MediaType.APPLICATION_JSON),
-                        content().json(mapper.writeValueAsString(userDto))
+                        content().json(JsonFormat.printer().print(userDto))
                 );
     }
 
@@ -155,17 +156,17 @@ class UserControllerTest extends PostgresqlTestContainer {
 
             mockMvc.perform(post(URL)
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(mapper.writeValueAsString(testData)))
+                            .content(JsonFormat.printer().print(testData)))
                     .andExpectAll(
                             status().isCreated(),
                             content().contentType(MediaType.APPLICATION_JSON),
-                            content().string(mapper.writeValueAsString(expectedUserDto))
+                            content().string(JsonFormat.printer().print(expectedUserDto))
                     );
         }
 
+        @EmptySource
         @SneakyThrows
         @ParameterizedTest
-        @NullAndEmptySource
         @ValueSource(strings = {
                 "abcd",  //4 chars
                 "1asdfghj", //must start with char
@@ -174,18 +175,20 @@ class UserControllerTest extends PostgresqlTestContainer {
                 "asdfghjklhzxcvbnmasdfghjklasdfghjklasdfga" //41 chars
         })
         void createLoginNegate(String login) {
-            CreateUserDto testData = getTestData(CreateUserDto.class, CREATE_USER_DTO_01);
-            CreateUserDto userDto = new CreateUserDto(login, testData.password(), testData.email(), testData.firstName(), testData.lastName());
+            CreateUserDto userDto = getTestData(CreateUserDto.class, CREATE_USER_DTO_01)
+                    .toBuilder()
+                    .setLogin(login)
+                    .build();
 
             mockMvc.perform(post(URL)
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(mapper.writeValueAsString(userDto)))
+                            .content(JsonFormat.printer().print(userDto)))
                     .andExpect(status().isBadRequest());
         }
 
+        @EmptySource
         @SneakyThrows
         @ParameterizedTest
-        @NullAndEmptySource
         @ValueSource(strings = {
                 "abcdas4",  //7 chars
                 "aasdfghja", //must contains number
@@ -196,18 +199,20 @@ class UserControllerTest extends PostgresqlTestContainer {
                 "asdfghjklhzxcvbnmasdfghjklasdfghjklas123aasdfghjklhzxcvbnmasdfghjklasdfghjklasdfgaasdfghjklhzxcvbnmasdfghjklasdfghjklasdfgaasdfghjklhzxcvbnmasdfghjklasdfghjklasdfgaasdfghjklhzxcvbnmasdfghjklaghjklhzxcv"
         })
         void createPasswordNegate(String password) {
-            CreateUserDto testData = getTestData(CreateUserDto.class, CREATE_USER_DTO_01);
-            CreateUserDto userDto = new CreateUserDto(testData.login(), password, testData.email(), testData.firstName(), testData.lastName());
+            CreateUserDto userDto = getTestData(CreateUserDto.class, CREATE_USER_DTO_01)
+                    .toBuilder()
+                    .setPassword(password)
+                    .build();
 
             mockMvc.perform(post(URL)
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(mapper.writeValueAsString(userDto)))
+                            .content(JsonFormat.printer().print(userDto)))
                     .andExpect(status().isBadRequest());
         }
 
+        @EmptySource
         @SneakyThrows
         @ParameterizedTest
-        @NullAndEmptySource
         @ValueSource(strings = {
                 "asdfghj.dad",
                 "@ddada.dad",
@@ -215,38 +220,43 @@ class UserControllerTest extends PostgresqlTestContainer {
                 "dawd@dada.",
         })
         void createEmailEmpty(String email) {
-            CreateUserDto testData = getTestData(CreateUserDto.class, CREATE_USER_DTO_01);
-            CreateUserDto userDto = new CreateUserDto(testData.login(), testData.password(), email, testData.firstName(), testData.lastName());
+            CreateUserDto userDto = getTestData(CreateUserDto.class, CREATE_USER_DTO_01)
+                    .toBuilder()
+                    .setEmail(email)
+                    .build();
 
             mockMvc.perform(post(URL)
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(mapper.writeValueAsString(userDto)))
+                            .content(JsonFormat.printer().print(userDto)))
                     .andExpect(status().isBadRequest());
         }
 
+        @EmptySource
         @SneakyThrows
         @ParameterizedTest
-        @NullAndEmptySource
         void createFirstNameEmpty(String firstName) {
-            CreateUserDto testData = getTestData(CreateUserDto.class, CREATE_USER_DTO_01);
-            CreateUserDto userDto = new CreateUserDto(testData.login(), testData.password(), testData.email(), firstName, testData.lastName());
+            CreateUserDto userDto = getTestData(CreateUserDto.class, CREATE_USER_DTO_01)
+                    .toBuilder()
+                    .setFirstName(firstName)
+                    .build();
 
             mockMvc.perform(post(URL)
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(mapper.writeValueAsString(userDto)))
+                            .content(JsonFormat.printer().print(userDto)))
                     .andExpect(status().isBadRequest());
         }
 
+        @Test
         @SneakyThrows
-        @ParameterizedTest
-        @NullAndEmptySource
-        void createLastNameEmpty(String lastName) {
-            CreateUserDto testData = getTestData(CreateUserDto.class, CREATE_USER_DTO_01);
-            CreateUserDto userDto = new CreateUserDto(testData.login(), testData.password(), testData.email(), testData.firstName(), lastName);
+        void createLastNameEmpty() {
+            CreateUserDto userDto = getTestData(CreateUserDto.class, CREATE_USER_DTO_01)
+                    .toBuilder()
+                    .setLastName("")
+                    .build();
 
             mockMvc.perform(post(URL)
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(mapper.writeValueAsString(userDto)))
+                            .content(JsonFormat.printer().print(userDto)))
                     .andExpect(status().isBadRequest());
         }
     }

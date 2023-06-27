@@ -2,8 +2,11 @@ package ru.clevertec.user.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ObjectFactory;
 import org.mapstruct.ReportingPolicy;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.clevertec.user.data.Authority;
 import ru.clevertec.user.data.CreateUserDto;
 import ru.clevertec.user.data.ResponseUserDto;
 import ru.clevertec.user.data.UserDto;
@@ -22,6 +25,18 @@ public interface UserMapper {
      * @return объект {@link UserDto}, содержащий данные пользователя
      */
     UserDto toUserDto(UserDetails userDetails);
+
+    @ObjectFactory
+    default UserDto.Builder getBuilder(UserDetails userDetails) {
+        return UserDto.newBuilder()
+                .addAllAuthorities(
+                        userDetails.getAuthorities().stream()
+                                .map(this::mapAuthorities)
+                                .toList());
+    }
+
+    @Mapping(target = "authority", source = "authority")
+    Authority mapAuthorities(GrantedAuthority authority);
 
     /**
      * Конвертирует объект {@link CreateUserDto} в объект {@link User}.
