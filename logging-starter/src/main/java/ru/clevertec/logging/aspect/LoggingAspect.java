@@ -24,10 +24,9 @@ public class LoggingAspect {
         Object methodName = joinPoint.getSignature().getName();
         Object[] args = joinPoint.getArgs();
 
-        log.info("Before: {}.{}({})", className, methodName, args);
-
         Object result = joinPoint.proceed();
 
+        log.info("Before: {}.{}({})", className, methodName, args);
         log.info("After: result::{}", result);
         return result;
     }
