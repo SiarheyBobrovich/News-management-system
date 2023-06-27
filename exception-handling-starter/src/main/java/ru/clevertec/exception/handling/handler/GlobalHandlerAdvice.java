@@ -1,5 +1,7 @@
 package ru.clevertec.exception.handling.handler;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -31,6 +33,17 @@ public class GlobalHandlerAdvice {
         String message = e.getFieldErrors().stream()
                 .map(error -> StringUtils.joinWith(" = ", error.getField(), error.getDefaultMessage()))
                 .reduce((s1, s2) -> StringUtils.joinWith("; ", s1, s2))
+                .orElse("Bad Request");
+        ExceptionMessage responseError = new ExceptionMessage(400, message);
+
+        return ResponseEntity.badRequest().body(responseError);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ExceptionMessage> handleThrowable(ConstraintViolationException e) {
+        String message = e.getConstraintViolations().stream()
+                .map(ConstraintViolation::getMessage)
+                .reduce((s1, s2) -> StringUtils.joinWith("\n", s1, s2))
                 .orElse("Bad Request");
         ExceptionMessage responseError = new ExceptionMessage(400, message);
 

@@ -2,6 +2,8 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'io.freefair.lombok' version '8.0.1'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'org.springframework.boot' version '3.1.0'
 }
 
 group = 'ru.clevertec'
@@ -28,17 +30,21 @@ publishing {
 dependencies {
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:3.1.0"
 
-    implementation 'org.springframework.boot:spring-boot-starter:3.1.0'
-    implementation 'org.springframework.boot:spring-boot-starter-web:3.1.0'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     api 'ru.clevertec:logging-starter:1.0.0'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:3.1.0'
-    testImplementation 'org.springframework.boot:spring-boot-starter-validation:3.1.0'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+tasks.named("bootJar") {
+    it.enabled = false
 }
 
 tasks.named("build") {
