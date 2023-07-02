@@ -1,0 +1,53 @@
+{
+  "content": [
+    {
+      "id": 1,
+      "time": "2023-05-01T01:01:01.1",
+      "text": "Что-то не сходится, аппарат в последний раз отправил показания, когда по данным телеметрии до поверхности оставалось несколько метров.",
+      "username": "user1",
+      "newsId": 1
+    },
+    {
+      "id": 2,
+      "time": "2023-05-01T01:02:01.1",
+      "text": "Всё сходится. Компьютер решил что сканер высоты глючит и садился по другим данным/датчикам.",
+      "username": "user2",
+      "newsId": 1
+    }
+  ],
+  "pageable": {
+    "sort": [
+      {
+        "direction": "ASC",
+        "property": "id",
+        "ignoreCase": false,
+        "nullHandling": "NATIVE",
+        "ascending": true,
+        "descending": false
+      }
+    ],
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 2,
+    "paged": true,
+    "unpaged": false
+  },
+  "last": false,
+  "totalPages": 50,
+  "totalElements": 100,
+  "size": 2,
+  "number": 0,
+  "sort": [
+    {
+      "direction": "ASC",
+      "property": "id",
+      "ignoreCase": false,
+      "nullHandling": "NATIVE",
+      "ascending": true,
+      "descending": false
+    }
+  ],
+  "first": true,
+  "numberOfElements": 2,
+  "empty": false
+}

@@ -1,0 +1,51 @@
+{
+  "content": [
+    {
+      "id": 101,
+      "time": "2023-06-10T01:58:43.684166",
+      "text": "First comment",
+      "username": "user1"
+    },
+    {
+      "id": 10,
+      "time": "2023-05-01T01:10:01.1",
+      "text": "Некоторые ещё утверждают, что способны водить автомобиль, хотя компьютеры, способные делать это, начали появляться только в самое последнее время.",
+      "username": "user10"
+    }
+  ],
+  "pageable": {
+    "sort": [
+      {
+        "direction": "DESC",
+        "property": "id",
+        "ignoreCase": false,
+        "nullHandling": "NATIVE",
+        "ascending": false,
+        "descending": true
+      }
+    ],
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 2,
+    "paged": true,
+    "unpaged": false
+  },
+  "last": false,
+  "totalPages": 6,
+  "totalElements": 11,
+  "size": 2,
+  "number": 0,
+  "sort": [
+    {
+      "direction": "DESC",
+      "property": "id",
+      "ignoreCase": false,
+      "nullHandling": "NATIVE",
+      "ascending": false,
+      "descending": true
+    }
+  ],
+  "first": true,
+  "numberOfElements": 2,
+  "empty": false
+}
